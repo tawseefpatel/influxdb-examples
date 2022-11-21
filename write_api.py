@@ -14,11 +14,11 @@ def write_voltage_to_api(voltage_value, api_tag_key, api_tag_value):
                     record=voltage_api)
 
 
-def write_current_to_api(current_value, api_tag_key, api_tag_value):
-    current = influxdb_client.Point(api_point).tag(
-        api_tag_key, api_tag_value).field("current", current_value)
+def write_current_to_api(current_value, api_tag_key):
+    current = influxdb_client.Point(api_point).field(
+        api_tag_key, current_value)  # does work without .tag()
     write_api.write(bucket=api_bucket, org=API_ORG_INFLUXDB, record=current)
 
 
-write_current_to_api(0.461, "Powerbrick ID", "192.168.1.12")
+write_current_to_api(0.461, "192.168.1.12")
 write_voltage_to_api(117, "Powerbrick ID", "192.168.1.12")
