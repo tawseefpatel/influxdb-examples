@@ -8,5 +8,6 @@ flux_query = 'from(bucket:"Smartplug")' \
     ' |> filter(fn: (r) => r._measurement == "5_day_test_SN239")'\
     ' |> filter(fn: (r) => r._field == "power")'
 
+# can do a  max of 10k datapoints only
 result_df = query_api.query_data_frame(query=flux_query, org=API_ORG_INFLUXDB)
 result_df.to_csv('results.csv')
